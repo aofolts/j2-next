@@ -52,9 +52,8 @@ const FooterBar = props => {
   }
 
   const icons = Object.keys(social).map(platform => {
-
     return (
-      <a className='link' href={social[platform].url} target='_blank'>
+      <a key={platform} className='link' href={social[platform].url} target='_blank'>
         <img 
           className='icon' 
           alt={`${platform}-icon`} 

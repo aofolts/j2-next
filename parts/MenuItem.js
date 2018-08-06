@@ -60,8 +60,6 @@ class MenuItem extends React.Component {
         )
       })
 
-      console.log(this.props.headerContext.activeSubMenuId + ' ' + this.item.ID)
-
       const classes = [
         'sub_menu',
         this.props.headerContext.activeSubMenuId === this.item.ID ? 'is-active' : null,

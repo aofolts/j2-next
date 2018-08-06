@@ -1,4 +1,6 @@
 import '../src/less/header.less'
+//import '../src/less/style.less'
+
 import HeaderScript from './HeaderScript'
 import MainMenu from './MainMenu'
 import Link from 'next/link'

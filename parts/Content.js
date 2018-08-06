@@ -3,9 +3,6 @@ import {config} from '../config'
 const Content = props => {
   let html = props.html
 
-  console.log(config)
-  console.log(config.backendUrl + ' ' + config.url)
-
   html = html.replace(config.backendUrl,config.url)
 
   return (

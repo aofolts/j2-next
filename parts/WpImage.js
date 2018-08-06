@@ -21,11 +21,6 @@ export default class Image extends React.Component {
     this.loadType    = props.loadType
     this.loaded      = false
 
-    if (props.loadType === 'manual') {
-      console.log('manual')
-      console.log(image)
-    }
-
     this.state = {
       src: image.sizes.lowres.url,
       srcSet: null
@@ -86,7 +81,7 @@ export default class Image extends React.Component {
 
 Image.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.isRequired,
     sizes: PropTypes.object.isRequired
   }),
   size: PropTypes.string.isRequired,

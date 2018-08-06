@@ -1,10 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 import Typekit from 'react-typekit'
 
-// Less
-import '../src/less/yetti/reset.less'
-import '../src/less/style.less'
-
 export default class Template extends Document {
 
   static async getInitialProps(ctx) {

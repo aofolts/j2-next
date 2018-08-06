@@ -1,5 +1,4 @@
-const withLess  = require('@zeit/next-less'),
-      withFonts = require('next-fonts')
+const withLess  = require('@zeit/next-less')
 
 module.exports = withLess(
 )

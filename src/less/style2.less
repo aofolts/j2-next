@@ -2,7 +2,6 @@
 @import 'yetti/theme/content.less';
 @import 'vars.less';
 @import (reference) 'mixins.less';
-@import (reference) 'header.less';
 
 ////////////////////////////////////////////////////////
 // TYPE (tpe)
@@ -105,7 +104,7 @@ p,.p {
 ////////////////////////////////////////////////////////
 
 #footer {
-  .c(white);
+  @theme-dark(); .c(white);
 }
 
 #section-footer-newsletter {

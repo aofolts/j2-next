@@ -1,6 +1,5 @@
 @import (reference) 'vars.less';
 @import (reference) 'yetti/mixins.less';
-@import (reference) 'style.less';
 
 #slider {
 
@@ -184,7 +183,7 @@
     .bg(grey); .pb(66%); .of(hidden);
 
     &:hover {
-      .card-hover;
+      @card-hover();
     }
 
     .background {
@@ -212,7 +211,7 @@
     .dsp(flex); .flxd(column);
 
     &:hover {
-      .card-hover;
+      @card-hover();
     }
   }
 

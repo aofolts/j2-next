@@ -2,9 +2,7 @@ import PropTypes from 'prop-types'
 import Wrap from '../parts/Wrap'
 import Content from '../parts/Content'
 
-const Intro = props => {
-  console.log(props.content)
- 
+const Intro = props => { 
   return (
     <section id='section-intro'>
       <Wrap width='small'>
