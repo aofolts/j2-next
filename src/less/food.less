@@ -1,0 +1,52 @@
+@import (reference) 'vars.less';
+@import (reference) 'mixins.less';
+
+#grid {
+  .grid(@cols:3);
+
+  .card-menu-marquee {
+    @card-menu-marquee();
+  }
+}
+
+#section-archive {
+  .bg(@lgrey);
+}
+
+#section-nav {
+  .ta(center);
+}
+
+#nav-food {
+  .mar(-.5em -.5em 0 0); .fs(@p2);
+  
+  .category {
+    .bd(@bd solid @dgrey); .pad(1em); .ib; .mar(.5em); .cur(pointer); .fw(500);
+
+    &.is-selected {
+      .bg(@prime); .c(white);
+    }
+  }
+}
+
+#section-items {
+  .bg(@lgrey);
+}
+
+#items {
+  .grid(@cols:4);
+
+  .item {
+    .hide;
+
+    &.is-selected {
+      .dsp(block);
+    }
+
+    .description {.fs(@p2);}
+  }
+}
+
+#info {
+  .fs(@p); .mt(@m);
+}

@@ -1,0 +1,86 @@
+@import (reference) 'vars.less';
+
+@header-height: 15rem;
+
+#header {
+
+  .pos(fixed); .z(1000); .w; --color: white;
+
+  &.is-scrolling {
+
+    .trn(all .2s ease-in-out);
+
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,.1);
+
+    #nav {.bg(@prime);}
+
+  }
+
+  &.is-compact {
+
+    #nav {
+      .h(8rem);
+    }
+
+  }
+
+}
+
+#nav {
+  .w; .dsp(flex); .aic; .fs(3rem); .pad(0 var(--h));
+  .c(white); .bg(transparent); .jcsb;
+}
+
+#site_name {
+  .h; .aic; .flx;
+}
+
+#siteLogo {
+  .h(33%); .mh(@ms); filter: brightness(1) invert(1);
+}
+
+#menu {
+  .flx; .fs(@p2); .lh(@lh);
+
+  .item-primary {
+    .fw(500);
+  }
+
+  .sub_menu {
+    .hide;
+  }
+
+  .item-secondary {
+
+    &:hover {
+      .bg(@dtrans-lightest);
+    }
+  }
+
+  .title-secondary {
+    .w; .block; .pad(.5em 1em);
+  }
+}
+
+#header.not-mobile {
+
+  .item-primary {
+    .pad(@s);
+  }
+
+  .sub_menu-toggle {
+    .hide;
+  }
+
+}
+
+@media @min-tablet {
+
+  #nav {
+    .h(13rem);
+  }
+
+}
+
+@import 'menu-mobile.less';
+@import 'header-desktop.less';

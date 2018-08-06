@@ -1,0 +1,19 @@
+@import (reference) 'vars.less';
+@import (reference) 'mixins.less';
+
+#section-intro {
+  .mb(calc(var(--v) ~'*' -1))
+}
+
+.grid-gallery {
+  .grid(@cols: 2);
+
+  .image {
+    .w; .pb(66%);
+  }
+
+  .background {
+    .imgbg();
+  }
+}
+

@@ -1,0 +1,34 @@
+#header.not-mobile {
+
+  .item-primary {
+
+    &:hover {
+
+      .sub_menu {
+        .dsp(block);
+      }
+    }
+
+    &.has-children {
+      
+      > .title {
+        //.flx; .aic;
+
+        &:after {
+          .cnt; .wh(5px); .bg(var(--color)); .ml(.25em); .ib; .br; .va(middle);
+        }
+      }
+    }
+  }
+
+  .sub_menu {
+    .abs; .t(100%); .l(50%); .trf(translateX(-50%));
+    .bg(@prime); .c(white); .w(25rem);
+    .bxs(0,0,@s,0,rgba(0,0,0,.2));
+  }
+
+  .item-secondary {
+    .fs(@p3);
+  }
+
+}
