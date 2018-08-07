@@ -1,13 +1,5 @@
 import {config} from '../config';
-import Header from '../parts/Header';
 import fetch from 'isomorphic-unfetch'
-import Wrap from '../parts/Wrap'
-import WpImage from '../parts/WpImage'
-import Button from '../parts/Button'
-import Section from '../parts/Section'
-import Slider from '../parts/Slider'
-import FeaturedTabs from '../parts/FeaturedTabs'
-import Video from '../parts/Video'
 
 export default class Blog extends React.Component {
 
