@@ -2,6 +2,8 @@ import { config } from "../config";
 import Link from 'next/link'
 import {withHeaderContext} from '../parts/HeaderContext'
 import MenuItem from '../parts/MenuItem'
+import css from '../src/less/header.less'
+import mobileStyle from '../src/less/header-mobile.less'
 
 class MainMenu extends React.Component {
 
@@ -27,10 +29,16 @@ class MainMenu extends React.Component {
   }
 
   render() {
-    const showClass = this.props.headerContext.activeSubMenuId ? 'show-sub_menu' : null
+    const {isMobile,activeSubMenuId} = this.props.headerContext
+
+    const classes = [
+      css.menu,
+      isMobile ? mobileStyle.menu : null,
+      isMobile && activeSubMenuId ? mobileStyle.menuShowingSubMenu : null
+    ].join(' ')
 
     return (
-      <ul id='menu' className={showClass}>
+      <ul id='menu' className={classes}>
         {this.getMenuItems()}
       </ul>
     )

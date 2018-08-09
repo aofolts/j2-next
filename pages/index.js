@@ -2,7 +2,6 @@ import Header from '../parts/Header';
 import fetch from 'isomorphic-unfetch'
 import Wrap from '../parts/Wrap'
 import WpImage from '../parts/WpImage'
-import Button from '../parts/Button'
 import Section from '../parts/Section'
 import Slider from '../parts/Slider'
 import { config } from '../config';
@@ -11,23 +10,24 @@ import Video from '../parts/Video'
 import Link from 'next/link'
 import Layout from '../parts/Layout'
 import BlogCard from '../parts/BlogCard'
-
-import '../src/less/home.less'
 import Wrapper from '../parts/Wrapper';
+import css from '../src/less/home.less'
 
 const IntroSection = props => (
-  <section id='section-intro'>
+  <Section name='intro'>
     <Wrap width='small'>
       <h2>{props.fields.headline}</h2>
       <div className='copy' dangerouslySetInnerHTML={{__html: props.fields.copy}}></div>
     </Wrap>
-  </section>
+  </Section>
 )
 
 const VideoSection = props => (
-  <Section name='video'>
+  <Section name='video' className={css.videoSection}>
     <Wrap width='medium'>
-      <Video videoKey='44662050' host='vimeo' />
+      <div className={css.videoContainer}>
+        <Video videoKey='44662050' host='vimeo' className={css.video}/>
+      </div>
     </Wrap>
   </Section>
 )
@@ -35,24 +35,36 @@ const VideoSection = props => (
 const MenusSection = props => {
   const fields = props.fields
 
+  const menus = fields.list.map(post => {
+    const href = {
+      pathname: `/${post.slug}`,
+      query: {
+        slug: `/${post.slug}`,
+        apiRoute: 'pages'
+      }
+    }
+
+    return (
+      <Link href={href} as={href.pathname} key={post.ID}>
+        <a className={css.menuCard}>
+          <WpImage className={css.menuCardBackground} data={post.featuredImage} size='medium' />
+          <h3 className={css.menuCardTitle}>{post.post_title}</h3>
+        </a>
+      </Link>
+    )
+  })
+
   return (
-    <Section name='menus'>
-      <div className='content'>
+    <Section name='menus' className={css.menusSection}>
+      <div className={css.menusContent}>
         <Wrap width='small'>
           <h2>{fields.headline}</h2>
-          <div className='copy' dangerouslySetInnerHTML={{__html: fields.copy}}></div>
+          <div className={css.menusCopy} dangerouslySetInnerHTML={{__html: fields.copy}}></div>
         </Wrap>
       </div>
       <Wrap width='main'>
-        <div className='grid-menus'>
-          {fields.list.map(post => (
-            <Link href={`/${post.slug}`} key={post.id}>
-              <a className='card'>
-                <WpImage className='background' data={post.featured_image} size='medium' />
-                <h3 className='title'>{post.title.rendered}</h3>
-              </a>
-            </Link>
-          ))}
+        <div className={[css.thirdsGrid,css.menusGrid].join(' ')}>
+          {menus}
         </div>
       </Wrap>
     </Section>
@@ -63,13 +75,13 @@ const CommunitySection = props => {
   const fields = props.fields
 
   return (
-    <Section name='community'>
+    <Section name='community' className={css.communitySection}>
       <Wrap width='small'>
         <h2>{fields.headline}</h2>
         <div className='copy' dangerouslySetInnerHTML={{__html: fields.copy}}></div>
       </Wrap>
       <Wrap>
-        <div className='grid-community'>
+        <div className={[css.communityGrid,css.thirdsGrid].join(' ')}>
           {fields.list.map(post => (
               <BlogCard key={post.id} post={post}/>
           ))}
@@ -84,13 +96,6 @@ class Index extends React.Component {
   static async getInitialProps(props) {
     const post = props.post
 
-    // Hero Slides
-    const slides = await Promise.all(
-      post.acf.hero_slides.map(async postId => {
-      const res = await fetch(`${config.api.wpRestUrl}/slides/` + postId + '?_embed')
-      return res.json()
-    }))
-
     // Location Info
     const locationRes = await fetch(`${config.api.restUrl}/acf/v3/options/location`),
           location    = await locationRes.json(),
@@ -98,14 +103,9 @@ class Index extends React.Component {
     
     const featuredMenus = {
       headline: post.acf.menus.headline,
-      copy: post.acf.menus.copy
+      copy: post.acf.menus.copy,
+      list: post.acf.menus.list
     }
-
-    featuredMenus.list = await Promise.all(
-      post.acf.menus.list.map(async postId => {
-      const res = await fetch(`${config.api.wpRestUrl}/pages/` + postId + '?_embed')
-      return res.json()
-    }))
 
     // Recent Blog Posts
     const blogsRes = await fetch(`${config.api.wpRestUrl}/blog/?per_page=3`),
@@ -117,7 +117,7 @@ class Index extends React.Component {
     
     return {
       ...props,
-      slides: slides,
+      slides: post.acf.hero_slides,
       hours: hours,
       introFields: post.acf.intro,
       location: location.acf,
@@ -132,7 +132,7 @@ class Index extends React.Component {
         <Layout {...this.props}>
           <Slider slides={this.props.slides} />
           <IntroSection fields={this.props.introFields} />
-          <Section name='featured_tabs'>
+          <Section name='featuredTabs' className={css.featuredTabsSection}>
             <Wrap>
               <FeaturedTabs hours={this.props.hours} location={this.props.location} />
             </Wrap>

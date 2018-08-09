@@ -2,6 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import {withHeaderContext} from '../parts/HeaderContext'
 import { config } from "../config";
+import css from '../src/less/header.less'
+import desktopStyle from '../src/less/header-desktop.less'
+import mobileStyle from '../src/less/header-mobile.less'
 
 class MenuItem extends React.Component {
 
@@ -37,6 +40,8 @@ class MenuItem extends React.Component {
 
   getSubMenu() {
     if (this.subMenu) {
+      const {isMobile,activeSubMenuId} = this.props.headerContext
+
       const items = this.subMenu.map(item => {
         const slug    = config.getPostSlug(item.url),
               target  = (item.type == 'custom') ? '_blank' : null
@@ -48,10 +53,15 @@ class MenuItem extends React.Component {
             apiRoute: 'pages'
           }
         }
+
+        const itemClasses = [
+          css.secondaryItem,
+          isMobile ? mobileStyle.secondaryItem : desktopStyle.secondaryItem
+        ].join(' ')
         
         return (
-          <li className='item item-secondary' key={item.ID}>
-            <Link href={href} as={slug} prefetch>
+          <li className={itemClasses} key={item.ID}>
+            <Link href={href} as={slug}>
               <a className='title-secondary' target={target}>
                 {item.title}
               </a>
@@ -60,13 +70,14 @@ class MenuItem extends React.Component {
         )
       })
 
-      const classes = [
-        'sub_menu',
-        this.props.headerContext.activeSubMenuId === this.item.ID ? 'is-active' : null,
+      const subMenuClasses = [
+        css.subMenu,
+        isMobile && (activeSubMenuId === this.item.ID) ? mobileStyle.activeSubMenu : null,
+        isMobile ? mobileStyle.subMenu : desktopStyle.subMenu
       ].join(' ')
   
       return (
-        <ul className={classes}>
+        <ul className={subMenuClasses}>
           {items} 
         </ul>
       )
@@ -76,10 +87,16 @@ class MenuItem extends React.Component {
   }
 
   getSubMenuToggle() {
-    if (this.subMenu.length > 0) {
+    const {isMobile} = this.props.headerContext
+
+    if (this.subMenu.length > 0 && isMobile) {
+      const toggleClasses = [
+        this.props.headerContext.isMobile ? mobileStyle.subMenuToggle : null
+      ].join(' ')
+
       return (
         <div 
-          className='sub_menu-toggle' 
+          className={toggleClasses}
           onClick={() => this.props.headerContext.setActiveSubMenuById(this.item.ID)}
           >
         </div>
@@ -92,28 +109,39 @@ class MenuItem extends React.Component {
   render() {
     const item = this.props.item 
     const subMenuClass = (this.subMenu.length > 0) ? 'has-children' : null,
-          itemClass    = ['item item-primary',subMenuClass].join(' '),
           slug         = item.url ? config.getPostSlug(item.url) : null,
           target       = (item.type == 'custom') ? '_blank' : null
+
+    const {isMobile} = this.props.headerContext
+
+    const itemClasses = [
+      css.primaryItem,
+      isMobile ? mobileStyle.primaryItem : desktopStyle.primaryItem
+    ].join(' ')
+
+    const titleClasses = [
+      isMobile ? mobileStyle.primaryTitle : null,
+      (this.subMenu.length > 0 && !isMobile) ? desktopStyle.subMenuIcon : null
+    ].join(' ')
 
     const link = slug 
       ? (
         <Link href={{ pathname: slug, query: {slug: slug, apiRoute: "pages"} }} as={slug}>
-          <a target={target}>
+          <a className='link' target={target}>
             {item.title}
           </a>
         </Link>
       ) 
       : (
-        <a>
+        <a className='link'>
           {item.title}
         </a>
       )
 
 
     return (
-      <li className={itemClass} >
-        <div className='title'>
+      <li className={itemClasses} >
+        <div className={titleClasses}>
           {link}
           {this.getSubMenuToggle()}
         </div>

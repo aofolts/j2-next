@@ -50,7 +50,8 @@ const Wrapper = Child => (
         subCategories: taxKids,
         posts: posts,
         context: context.apiRoute,
-        query: context.query
+        query: context.query,
+        url: `${config.api.wpRestUrl}/food/?food_category=${tax.id}`
       })
     }
 

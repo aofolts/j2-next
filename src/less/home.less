@@ -1,161 +1,40 @@
 @import (reference) 'vars.less';
 @import (reference) 'yetti/mixins.less';
 
-#slider {
-
-  .h(70rem); .mh(100vh); .w; .of(hidden);
-
-  .slide {
-    .abs; .t; .l; .wh; .dsp(flex); .aic; .jc(center); .c(white);
-
-    .headline {
-      .fs(var(--h1)); .ttf(uppercase); .mb(@s); .fw(700);
-    }
-  }
-
-  .background {
-
-    .abs; .wh; .obf(cover); .l; .t; .flt(brightness(.55));
-
-  }
-
-  .slide {
-    .abs; .wh; .trn(clip-path .5s ease-in-out); .bg(@grey-dark);
-
-    &.is-current {
-      .z(1);
-      clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
-    }
-
-    &.is-previous,.is-inactive {
-      .z(2);
-      clip-path: polygon(100% 0,100% 0,100% 100%,100% 100%);
-    }
-  }
-
-  .content {
-    .w(120rem); .mw; .pad(var(--h));
-    @media @min-tablet {
-      .pr(20rem);
-    }
-  }
-
-  .buttons {
-    @media @phone {
-      .dsp(flex); .flxd(column); .ta(center);
-    }
-  }
-
-  .button-1 {
-    @media @min-tablet {
-      .mr(@s);
-    }
-    @media @phone {
-      .mb(@s);
-    }
-  }
-
-  .nav {
-    .abs; .z(3); .mw; .dsp(flex);
-
-    @media @min-tablet {
-      .r(calc(50% ~'-' 60rem)); .flxd(column); .pr(var(--h)); .h; .jc(center);
-    }
-
-    @media @phone {
-      .b; .jc(center); .aic; .w; .pad(@s);
-    }
-
-    .item {
-      .dsp(flex); --size: @s; .cur(pointer);
-
-      @media @min-tablet {
-        .flxd(row-reverse); .aic;
-
-        &:hover {
-          .title {.dsp(block);}
-        }
-      }
-
-      &.is-current {
-        .icon {
-          .bg(white);
-        }
-      }
-
-      
-    }
-
-    .title {
-      .hide; .fs(@p2); .c(white); .fw(500); .lh(100%);
-    }
-
-    .icon {
-      .wh(@s); .bd(2px solid white); .br; .mar(@xs); 
-      .bg(transparent); .trn(background .2s ease-in-out);
-
-      @media @phone {
-        .wh(@xs); .mar(@xxs);
-      }
-    }
-  }
-
-}
-
-#section-featured_tabs {
+.featuredTabsSection {
   .mt(calc(var(--v) ~'*' -1.5)); .z(1);
 }
 
-.featured_sorter {
-  .ta(center);
+////////////////////////////////////////////////////////
+// VIDEO SECTION
+////////////////////////////////////////////////////////
 
-  .nav {
-    .bdb(2px solid rgba(0,0,0,.1)); .ib;
-
-    .item {
-      .ib; .fs(@p2); .fw(500); .pad(calc(@ms ~'/' 2)); .cur;
-
-      &.is-selected {
-        .bdb(2px solid @prime);
-      }
-    }
-  }
-
-  .items {
-    .item {
-      .hide; .mt(@m); .fs(@p); .lh(@line-height);
-
-      &.is-selected {
-        .dsp(block);
-      }
-    }
-  }
-}
-
-#section-video {
-
-  .mt(calc(var(--v) ~'*' -1.5)); .bg(@prime); 
+.videoSection {
+  .mt(calc(var(--v) ~'*' -1.5)); .bg(@prime);
 
   &:before {
     .cnt; .abs; .t(-1px); .l; .wh; .bg(white); .pe(none);
     clip-path: polygon(0 0,100% 0,100% 66%,0 33%);
   }
-
-  .container-video {
-    .w; .pb(54%); .bg(@prime); .bd(@s solid @prime); .bdb(none);
-
-    @media @phone {
-      .bdw(@xs);
-    }
-  }
-
-  .video {
-    .media-bg; 
-  }
-
 }
 
-.grid-menus,.grid-community {
+.videoContainer {
+  .w; .pb(54%); .bg(@prime); .bd(@s solid @prime); .bdb(none);
+
+  @media @phone {
+    .bdw(@xs);
+  }
+}
+
+.video {
+  .imgbg; 
+}
+
+////////////////////////////////////////////////////////
+// MENUS SECTION
+////////////////////////////////////////////////////////
+
+.thirdsGrid {
   .grid(@cols:3);
 
   .background {
@@ -163,68 +42,46 @@
   }
 }
 
-
-#section-menus {
+.menusSection {
   .mt(calc(var(--v) ~'*' -1));
+}
 
-  .content {
-    .bg(@prime); .c(white); .ta(center); .pb(var(--h));
-  }
+.menusContent {
+  .bg(@prime); .c(white); .ta(center);
+}
 
-  .copy {
-    .o(.9);
-  }
+.menusCopy {
+  .o(.9);
+}
 
-  .grid-menus {
-    .mt(calc(var(--v) ~'*' -2));
-  }
+.menuCard {
+  .bg(grey); .pb(66%); .of(hidden);
 
-  .card {
-    .bg(grey); .pb(66%); .of(hidden);
-
-    &:hover {
-      @card-hover();
-    }
-
-    .background {
-      .media-bg;
-    }
-
-    .title {
-      .c(white); .pad(@s); .bg(@prime); .abs; .b; .w; .l; .mb(0);
-    }
+  &:hover {
+    @card-hover();
   }
 }
 
-#section-community {
+.menuCardBackground {
+  .media-bg;
+}
+
+.menuCardTitle {
+  .c(white); .pad(@s); .bg(@prime); .abs; .b; .w; .l; .mb(0);
+}
+
+////////////////////////////////////////////////////////
+// COMMUNITY SECTION
+////////////////////////////////////////////////////////
+
+.communitySection {
   .bg(@lgrey); .ta(center); 
+}
 
-  .copy p {
-    .mb(0);
-  }
+.communityCopy p {
+  .mb(0);
+}
 
-  .grid-community {
-    .mt(calc(var(--v) ~'*' -1));
-  }
-
-  .card-community {
-    .dsp(flex); .flxd(column);
-
-    &:hover {
-      @card-hover();
-    }
-  }
-
-  .media {
-    .w; .pb(56.25%);
-  }
-
-  .category {
-    .abs; .t; .fs(@p3); .trf(translateY(-50%)); .bg(@prime); .pad(.35em .5em .2em); .lh(100%);
-    .c(white); .fw(500); .uc;
-  }
-
-  .content {
-    .pad(@s); .bg(white); .ta(left); 
-  }
+.communityGrid {
+  .mt(calc(var(--v) ~'*' -1));
 }

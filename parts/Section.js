@@ -6,13 +6,13 @@ export default class Section extends React.Component {
     super(props) 
 
     this.state = {
-      id: 'section-' + props.name
+      id: `${props.name}Section`
     }
   }
 
   render() {
     return ( 
-      <section id={this.state.id}>
+      <section id={this.state.id} className={this.props.className}>
         {this.props.children}
       </section>
     )

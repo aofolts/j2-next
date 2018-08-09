@@ -1,31 +1,26 @@
-import Header from '../parts/Header';
-import fetch from 'isomorphic-unfetch'
-import { config } from '../config';
 import Wrapper from '../parts/Wrapper'
 import Layout from '../parts/Layout'
 import Hero from '../parts/Hero'
-import Content from '../parts/Content'
 import Wrap from '../parts/Wrap'
 import WpImage from '../parts/WpImage'
 import Section from '../parts/Section'
-import '../src/less/gallery.less'
-import Intro from '../parts/Intro'
+import css from '../src/less/gallery.less'
 
 const Gallery = props => {
   const images = props.images.map(image => (
-    <div className='image' key={image.id}>
-      <WpImage className='background' data={image} size='medium' />
+    <div className={css.image} key={image.id}>
+      <WpImage className={css.background} data={image} size='medium' />
     </div>
   ))
 
   return (
-    <Section name='gallery'>
+    <section id='section-gallery'>
       <Wrap>
-        <div className='grid-gallery'>
+        <div className={css.grid}>
           {images}
         </div>
       </Wrap>
-    </Section>
+    </section>
   )
 }
 

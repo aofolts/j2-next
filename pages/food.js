@@ -10,6 +10,8 @@ import WpImage from '../parts/WpImage'
 import Section from '../parts/Section'
 import Link from 'next/link'
 import '../src/less/food.less'
+import menuCardStyle from '../src/less/menuCard.less'
+import css from '../src/less/food.less'
 
 const Intro = props => (
   <Section name='intro'>
@@ -26,9 +28,11 @@ const Archive = props => {
     if (image) {
       return (
         <Link href={`/food/${cat.slug}`} key={cat.id}>
-          <a className='card-menu-marquee'>
-            <WpImage className='background' data={cat.featured_image} size='medium' />
-            <h3 className='title'>{cat.name}</h3>
+          <a className={menuCardStyle.card}>
+            <div className={menuCardStyle.media}>
+              <WpImage className={menuCardStyle.background} data={cat.featured_image} size='medium' />
+            </div>
+            <h3 className={menuCardStyle.title}>{cat.name}</h3>
           </a>
         </Link>
       )
@@ -38,9 +42,9 @@ const Archive = props => {
   })
 
   return (
-    <Section name='archive'>
+    <Section name='archive' className={css.archiveSection}>
       <Wrap width='main'>
-        <div id='grid'>
+        <div id='grid' className={css.grid}>
           {cats}
         </div>
       </Wrap>
@@ -62,6 +66,7 @@ class Food extends React.Component {
 
   render() {
     const props  = this.props
+    console.log(props.url)
 
     return (
       <Layout {...this.props}>

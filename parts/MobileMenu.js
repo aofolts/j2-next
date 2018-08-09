@@ -1,6 +1,7 @@
 import React from 'react'
 import MainMenu from '../parts/MainMenu'
 import {withHeaderContext} from '../parts/HeaderContext'
+import css from '../src/less/header-mobile.less'
 
 /**
  * Icon
@@ -10,14 +11,19 @@ import {withHeaderContext} from '../parts/HeaderContext'
  * Exits current mobile sub menu
  */
 const MobileMenuExit = withHeaderContext(props => {
-  const {activeSubMenuId,setActiveSubMenuId,closeMobileMenu} = props.headerContext
+  const {activeSubMenuId,setActiveSubMenuById,closeMobileMenu} = props.headerContext
+
+  const exitClasses = [
+    css.exit,
+    activeSubMenuId ? css.exitSubMenu : css.exitMobileMenu
+  ].join(' ')
 
   return (
     <div 
-      className='exit' 
+      className={exitClasses} 
       onClick={() => {
         if (activeSubMenuId) {
-          props.headerContext.setActiveSubMenuById(false)
+          setActiveSubMenuById(false)
         } else {
           closeMobileMenu()
         }
@@ -47,13 +53,15 @@ class MobileMenu extends React.Component {
   }
   
   render() {
+    const {headerContext} = this.props
+
     const classes = [
-      this.props.headerContext.mobileMenuIsOpen ? 'is-open' : null,
-      this.props.headerContext.activeSubMenuId ? 'sub_menu-is-open' : null
+      headerContext.mobileMenuIsOpen ? css.openMobileMenu : null,
+      css.menuMobile
     ].join(' ')
 
     return (
-      <div id='menu-mobile' className={classes}>
+      <div id='menuMobile' className={classes}>
         <MainMenu items={this.props.menu} />
         {this.state.activeMenu}
         <MobileMenuExit/>
