@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import css from '../src/less/tabSorter.less'
 
 export default class FeaturedTabs extends React.Component {
 
@@ -94,30 +95,30 @@ export default class FeaturedTabs extends React.Component {
 
   render() {
     return (
-      <div className='featured_sorter'>
-        <nav className='nav'>
+      <div className={css.sorter}>
+        <nav className={css.nav}>
           {this.state.items.map((item,i) => {
-            let stateClass = null
-            if (i == this.state.activeTab) {
-              stateClass = 'is-selected'
-            }
+            const itemClasses = [
+              css.navItem,
+              i == this.state.activeTab ? css.selectedNavItem : null
+            ].join(' ')
 
             return (
-              <div className={'item ' + stateClass} key={i} onClick={() => this.changeTab(i)}>
+              <div className={itemClasses} key={i} onClick={() => this.changeTab(i)}>
                 {item.title}
               </div>
             )
           })}
         </nav>
-        <div className='items'>
+        <div className={css.items}>
           {this.state.items.map((item,i) => {
-            let stateClass = null
-            if (i == this.state.activeTab) {
-              stateClass = 'is-selected'
-            }
+            const itemClasses = [
+              css.item,
+              i == this.state.activeTab ? css.selectedItem : null
+            ].join(' ')
 
             return (
-              <div className={'item ' + stateClass} key={i}>
+              <div className={itemClasses} key={i}>
                 {item.content}
               </div>
             )

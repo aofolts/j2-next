@@ -1,22 +1,22 @@
 @import (reference) 'vars.less';
 @import (reference) 'mixins.less';
 
-#hero {
+.hero {
   .w; .h(60rem); .flx; .aic; .jc(center);
 
   @media @phone {
     .mh(100vh);
   }
+}
 
-  &__content {
-    .mw(120rem); .ta(center); .z(1); .pad(var(--h));
-  }
+.content {
+  .mw(120rem); .ta(center); .z(1); .pad(var(--h));
+}
 
-  &__headline {
-    .fs(@h1-var); .c(white); .mb(0);
-  }
+.headline {
+  .fs(@h1-var); .c(white); .mb(0);
+}
 
-  &__background {
-    .imgbg; @bg-filter();
-  }
+.background {
+  .imgbg; @bg-filter();
 }

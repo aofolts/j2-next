@@ -15,5 +15,11 @@ export const config = {
     wpRestUrl: wpRestUrl,
     url: backendUrl,
   },
-  getPostSlug: url => url.replace(backendUrl,'')
+  getPostSlug: url => {
+    if (typeof url === 'string') {
+      return url.replace(backendUrl,'')
+    } else {
+      return url
+    }
+  }
 }

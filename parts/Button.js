@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import {getPageRoute} from '../parts/Routes'
 
 export default class Button extends React.Component {
 

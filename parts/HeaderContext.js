@@ -1,6 +1,7 @@
 import React from 'react'
 
 const HeaderContext = React.createContext({
+  isDocked: true,
   isMobile: null,
   activeSubMenuId: false,
   closeMobileMenu: () => {},

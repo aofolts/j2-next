@@ -1,13 +1,8 @@
-@import (reference) 'vars.less';
-@import (reference) 'mixins.less';
+@import (reference) 'reference.less';
 
-.communitySection {
-  .bg(@lgrey);
-}
-
-.card-community {
+.card {
   .dsp(flex); .flxd(column);
-
+ 
   &:hover {
     @card-hover();
   }
@@ -15,10 +10,6 @@
 
 .media {
   .w; .pb(56.25%);
-}
-
-.background {
-  .imgbg();
 }
 
 .category {

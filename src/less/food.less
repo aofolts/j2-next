@@ -1,52 +1,49 @@
 @import (reference) 'vars.less';
 @import (reference) 'mixins.less';
 
-#grid {
+.grid {
   .grid(@cols:3);
-
-  .card-menu-marquee {
-    @card-menu-marquee();
-  }
 }
 
-#section-archive {
+.archiveSection {
   .bg(@lgrey);
 }
 
-#section-nav {
+.navSection {
   .ta(center);
 }
 
-#nav-food {
+.foodNav {
   .mar(-.5em -.5em 0 0); .fs(@p2);
-  
-  .category {
-    .bd(@bd solid @dgrey); .pad(1em); .ib; .mar(.5em); .cur(pointer); .fw(500);
-
-    &.is-selected {
-      .bg(@prime); .c(white);
-    }
-  }
 }
 
-#section-items {
+.navItem {
+  .bd(@bd solid @dgrey); .pad(1em); .ib; 
+  .mar(.5em); .cur(pointer); .fw(500);
+}
+
+.selectedNavItem {
+  .bg(@prime); .c(white);
+}
+
+.itemsSection {
   .bg(@lgrey);
 }
 
-#items {
+.items {
   .grid(@cols:4);
-
-  .item {
-    .hide;
-
-    &.is-selected {
-      .dsp(block);
-    }
-
-    .description {.fs(@p2);}
-  }
 }
 
-#info {
+.item {
+  .hide;
+}
+
+.selectedItem {
+  .dsp(block);
+}
+
+.itemDescription {.fs(@p2);}
+
+.info {
   .fs(@p); .mt(@m);
 }

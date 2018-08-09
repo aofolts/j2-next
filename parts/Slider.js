@@ -1,45 +1,47 @@
 import Button from './Button'
 import WpImage  from '../parts/WpImage' 
+import css from '../src/less/slider.less'
+import {config} from '../config'
 
 class Slide extends React.Component {
 
   constructor(props) {
     super(props)
 
-    this.getSlideClass = this.getSlideClass.bind(this)
-
     this.state = {
-      slideClass: this.getSlideClass()
+      slideState: props.slideState
     }
-  }
-
-  getSlideClass() {
-    return 'slide ' + this.props.slideState
   }
 
   componentWillReceiveProps(props) {
     this.setState({
-      slideClass: 'slide ' + props.slideState
+      slideState: props.slideState
     })
   }
 
   render() {
     const slide    = this.props.slide,
-          image    = slide.featured_image
+          image    = slide.featuredImage
 
     const imageEl = (
       <WpImage 
-        className='background' 
+        className={css.slideBackground} 
         data={image} size='hero' 
         loadType='auto' 
       />
     )
 
+    const slideClasses = [
+      css.slide,
+      css[`${this.state.slideState}Slide`],
+      this.state.slideState
+    ].join(' ')
+
     return (
-      <div className={this.state.slideClass} key={slide.id} title={slide.title.rendered}>
+      <div className={slideClasses} key={slide.id} title={slide.post_title.rendered}>
         {imageEl}
-        <div className='content'>
-          <h2 className='headline'>{slide.acf.headline}</h2>
+        <div className={css.slideContent}>
+          <h2 className={css.slideHeadline}>{slide.acf.headline}</h2>
           <Buttons link='test' fields={slide.acf} />
         </div>
       </div>
@@ -58,12 +60,25 @@ const Buttons = (props) => {
   return (
     <div className='buttons'>
       {buttons.map((button,i) => {
+        const buttonClasses = [
+          css[`button${i + 1}`],
+          'primaryButton'
+        ].join(' ')
+
+        // let link = button[button.link_type]
+
+        // console.log(link)
+
+        // if (typeof link === 'object') {
+        //   console.log(link)
+        // }
+
         return (
           <Button 
             key={i}
             label={button.label} 
-            className={`button-primary button-${i + 1}`} 
-            link={button.link} 
+            className={buttonClasses} 
+            link='test' 
           />
         )
       })}
@@ -83,7 +98,7 @@ export default class Slider extends React.Component {
       'getSlideById',
       'getSlideByIndex',
       'getSlideElements',
-      'getSlideStateClassById',
+      'getSlideStateById',
       'selectSlideById',
       'startLoop'
     ]
@@ -160,24 +175,30 @@ export default class Slider extends React.Component {
     const self = this
 
     return self.props.slides.map(slide => {
-      const stateClass = self.getSlideStateClassById(slide.id)
+      const slideState = self.getSlideStateById(slide.id)
 
       return (
-        <Slide slide={slide} key={slide.id} slideState={stateClass} />
+        <Slide slide={slide} key={slide.id} slideState={slideState} />
       )
     })
   }
 
   getSlideNav() {
     return (
-      <nav className='nav'>
+      <nav className={css.nav}>
         {this.props.slides.map(slide => {
-          const stateClass = this.getSlideStateClassById(slide.id)
+          const slideState = this.getSlideStateById(slide.id)
+
+          const iconClasses = [
+            css.navItemIcon,
+            css[`${slideState}NavItemIcon`],
+            slideState
+          ].join(' ')
 
           return (
-            <div key={slide.id} className={`item ${stateClass}`} onClick={() => this.selectSlideById(slide.id)} title={slide.title.rendered}>
-              <div className='icon'></div>
-              <div className='title'>{slide.title.rendered}</div>
+            <div key={slide.id} className={css.navItem} onClick={() => this.selectSlideById(slide.id)} title={slide.post_title.rendered}>
+              <div className={iconClasses}></div>
+              <div className={css.navItemTitle}>{slide.post_title.rendered}</div>
             </div>
           )
         })}
@@ -185,14 +206,12 @@ export default class Slider extends React.Component {
     )
   }
 
-  getSlideStateClassById(id) {
-    let slideState = null;
+  getSlideStateById(id) {
     switch (id) {
-      case this.state.previousSlide.id: slideState = 'previous'; break;
-      case this.state.currentSlide.id: slideState = 'current'; break;
-      default: slideState = 'inactive';
+      case this.state.previousSlide.id: return 'previous';
+      case this.state.currentSlide.id: return 'current';
+      default: return 'inactive';
     }
-    return 'is-' + slideState
   }
 
   selectSlideById(id) {
@@ -219,7 +238,7 @@ export default class Slider extends React.Component {
 
   render() {
     return (
-      <section id='slider'>
+      <section id='slider' className={css.slider}>
         {this.getSlideElements()}
         {this.getSlideNav()}
       </section>

@@ -6,10 +6,8 @@ import Layout from '../parts/Layout'
 import Hero from '../parts/Hero'
 import Content from '../parts/Content'
 import Wrap from '../parts/Wrap'
-import WpImage from '../parts/WpImage'
 import Section from '../parts/Section'
-import Link from 'next/link'
-import '../src/less/community.less'
+import css from '../src/less/community.less'
 import BlogCard from '../parts/BlogCard'
 
 const Intro = props => (
@@ -23,11 +21,11 @@ const Intro = props => (
 const Blogs = props => {
 
   return (
-    <Section name='archive-community'>
+    <Section name='archive-community' className={css.communitySection}>
       <Wrap>
-        <div className='grid-community'>
+        <div className='thirdsGrid'>
           {props.posts.map(post => (
-            <BlogCard post={post} />
+            <BlogCard key={post.id} post={post} />
           ))}
         </div>
       </Wrap>

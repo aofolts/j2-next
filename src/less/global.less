@@ -1,3 +1,5 @@
+:global {
+
 @import 'yetti/style.less';
 @import 'yetti/theme/content.less';
 @import 'vars.less';
@@ -24,6 +26,16 @@
   .ff('joesquared');
   .fw(700);
   src: url('/static/fonts/j2-bold.otf');
+}
+
+
+////////////////////////////////////////////////////////
+// BUTTONS (btn)
+////////////////////////////////////////////////////////
+
+.primaryButton {
+  .bg(@prime); .c(white);
+  .pad(1em 1.1em); .fs(@p); .cur(pointer); .ib; .fw(500);
 }
 
 ////////////////////////////////////////////////////////
@@ -80,17 +92,6 @@ p,.p {
   .fs(@p2 * .9);
 }
 
-////////////////////////////////////////////////////////
-// BUTTONS (btn)
-////////////////////////////////////////////////////////
-
-.button {
-  .pad(1em 1.1em); .fs(@p); .cur(pointer); .ib; .fw(500);
-}
-
-.button-primary {
-  .bg(@prime); .c(white); &:extend(.button);
-}
 
 ////////////////////////////////////////////////////////
 // ANIMATION (anm)
@@ -101,75 +102,43 @@ p,.p {
 }
 
 ////////////////////////////////////////////////////////
-// FOOTER (ftr)
-////////////////////////////////////////////////////////
-
-#footer {
-  .c(white);
-}
-
-#section-footer-newsletter {
-
-  .container-newsletter {
-    .grid(@cols:2);
-  }
-
-  input {
-    .bd(@bd solid white); .fs(@p); .bg(none); .pad(.5em);
-    .mw; .w(35rem);
-  } 
-
-  .field {
-    .mb(@s);
-  }
-
-  .submit {
-    .fs(@p); .fw(500); .bg(none); .c(white); .cur(pointer);
-  }
-}
-
-#footer-bar {
-  .bg(@dtrans-lightest); 
-  .fs(@p3);
-
-  @media @min-laptop {
-    .h(@m); .flx; .aic; .jcsb; .pad(0 @s);
-  }
-
-  @media @max-tablet {
-    .ta(center); .pad(@m); .h(auto); .ta(center);
-
-    .item+.item {
-      .mt(@s);
-    }
-  }
-
-  .social {
-    .link {
-      &+.link {
-        .ml(@xs);
-      }
-    }
-
-    .icon {
-      .h(@p3); filter: brightness(1) invert(1);
-    }
-  }
-}
-
-#credit-link {
-  .bdb(@bd solid fade(white,25%));
-}
-
-////////////////////////////////////////////////////////
 // INTRO (ntr)
 ////////////////////////////////////////////////////////
 
-#section-intro {
+#introSection {
   .ta(center);
+}
+
+////////////////////////////////////////////////////////
+// GRID
+////////////////////////////////////////////////////////
+
+.thirdsGrid {
+  .grid(@cols:3);
+}
+
+////////////////////////////////////////////////////////
+// LAYOUT (lyt)
+////////////////////////////////////////////////////////
+
+.mainWrap {
+  .wrap(@main);
+}
+
+.mediumWrap {
+  .wrap(100rem);
+}
+
+.smallWrap {
+  .wrap(@blog);
 }
 
 ////////////////////////////////////////////////////////
 // MEDIA (mda)
 ////////////////////////////////////////////////////////
+  
+.mediaBackground {
+  .imgbg;
+}
 
+} // End :global

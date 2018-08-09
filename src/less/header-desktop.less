@@ -1,34 +1,35 @@
-#header.not-mobile {
+@import (reference) 'vars.less';
 
-  .item-primary {
+.nav {
+  --navHeight: 12rem;
+}
 
-    &:hover {
+.primaryItem {
+  .h(var(--navHeight)); .flx; .aic;
 
-      .sub_menu {
-        .dsp(block);
-      }
-    }
+  &+.primaryItem {
+    .ml(2em);
+  }
 
-    &.has-children {
-      
-      > .title {
-        //.flx; .aic;
-
-        &:after {
-          .cnt; .wh(5px); .bg(var(--color)); .ml(.25em); .ib; .br; .va(middle);
-        }
-      }
+  &:hover {
+    .subMenu {
+      .dsp(block);
     }
   }
+}
 
-  .sub_menu {
-    .abs; .t(100%); .l(50%); .trf(translateX(-50%));
-    .bg(@prime); .c(white); .w(25rem);
-    .bxs(0,0,@s,0,rgba(0,0,0,.2));
+.subMenuIcon {
+  &:after {
+    .cnt; .wh(5px); .bg(var(--color)); .ml(.25em); .ib; .br; .va(middle);
   }
+}
 
-  .item-secondary {
-    .fs(@p3);
-  }
+.subMenu {
+  .abs; .t(100%); .l(50%); .trf(translateX(-50%));
+  .bg(@prime); .c(white); .w(25rem);
+  .bxs(0,0,@s,0,rgba(0,0,0,.2));
+}
 
+.secondaryItem {
+  .fs(@p3); .pad(.5em 1em);
 }

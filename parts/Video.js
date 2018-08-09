@@ -18,16 +18,15 @@ export default class Video extends React.Component {
   }
 
   render() {
+
     return (
-      <div className='container-video'>
-        <iframe className='video'
-          src={this.getSrc()}
-          frameBorder="0" 
-          allow="autoplay; encrypted-media" 
-          allowFullScreen
-        >
-        </iframe>
-      </div>
+      <iframe className={this.props.className || 'video'}
+        src={this.getSrc()}
+        frameBorder="0" 
+        allow="autoplay; encrypted-media" 
+        allowFullScreen
+      >
+      </iframe>
     )
   }
 

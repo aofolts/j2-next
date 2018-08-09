@@ -9,7 +9,7 @@ import Wrap from '../parts/Wrap'
 import WpImage from '../parts/WpImage'
 import Section from '../parts/Section'
 import Link from 'next/link'
-import '../src/less/food.less'
+import css from '../src/less/food.less'
 
 class MenuArchive extends React.Component {
 
@@ -41,8 +41,11 @@ class MenuArchive extends React.Component {
 
   getItemsSection() {
     const items = this.props.foodMenuItems.map(item => {
-      const selectedClass = (item.food_category.includes(this.state.selectedCategoryId)) ? 'is-selected' : null,
-            classes       = ['item',selectedClass].join(' ')
+      const isSelected = (item.food_category.includes(this.state.selectedCategoryId)),
+            itemClasses   = [
+              css.item,
+              isSelected ? css.selectedItem : null
+            ].join(' ')
 
       let pricing = null
 
@@ -63,7 +66,7 @@ class MenuArchive extends React.Component {
       return (
         <li 
           key={item.id} 
-          className={classes}
+          className={itemClasses}
           >
           <h3 className='title' dangerouslySetInnerHTML={{__html:item.title.rendered}}></h3>
           <p className='description' dangerouslySetInnerHTML={{__html:item.acf.description}}></p>
@@ -73,9 +76,9 @@ class MenuArchive extends React.Component {
     })
 
     return (
-      <Section name='items'>
+      <Section name='items' className={css.itemsSection}>
         <Wrap>
-          <ul id='items'>
+          <ul id='items' className={css.items}>
             {items}
           </ul>
         </Wrap>
@@ -85,19 +88,44 @@ class MenuArchive extends React.Component {
 
   getNavSection() {
     const items = this.props.subCategories.map(cat => {
-      const selectedClass = (cat.id === this.state.selectedCategoryId) ? 'is-selected' : null,
-            classes       = ['category',selectedClass].join(' ')
+      const isSelected  = (cat.id === this.state.selectedCategoryId),
+            itemClasses = [
+              css.navItem,
+              isSelected ? css.selectedNavItem : null
+            ].join(' ')
 
       return (
         <li 
           key={cat.id} 
-          className={classes}
+          className={itemClasses}
           onClick={() => this.setSelectedCategoryById(cat.id)}
           >
           {cat.name}
         </li>
       )
     })
+
+    // Link to Build Your Own Pizza
+    if (this.props.category.id === 24) {
+      const diyHref = {
+        pathname: '/build-your-own-pizza',
+        query: {
+          slug: '/build-your-own-pizza',
+          apiRoute: 'pages'
+        }
+      }
+  
+      items.push(
+        <li 
+          key='diy' 
+          className={css.navItem}
+          >
+          <Link href={diyHref} as={diyHref.query.slug}>
+            <a>Build Your Own</a>
+          </Link>
+        </li>
+      )
+    }
 
     const catDescriptions = this.props.subCategories
       .filter(cat => typeof(cat.description) !== 'undefined')
@@ -115,19 +143,36 @@ class MenuArchive extends React.Component {
       ? <p>{this.props.category.description}</p> 
       : null
 
+    const menusHref = {
+      slug: '/food',
+      query: {
+        slug: '/food',
+        apiRoute: 'pages'
+      }
+    }
+
+    const breadCrumbs = (
+      <p className={css.breadCrumbs}>
+        <Link href={menusHref} as={menusHref.slug}>
+          <a>Food</a>
+        </Link> > <span>{this.props.category.name}</span>
+      </p>
+    )
+
     const info = (catInfo || subCatInfo) ?
       (
-        <div id='info'>
+        <div className={css.info}>
           {catInfo}
+          {breadCrumbs}
           {subCatInfo}
         </div>
       ) : null
 
     return (
-      <Section name='nav'>
+      <Section name='nav' className={css.navSection}>
         <Wrap width='small'>
           <div>
-            <ul id='nav-food'>
+            <ul id='nav-food' className={css.foodNav}>
               {items}
             </ul>
           </div>

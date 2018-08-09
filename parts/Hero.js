@@ -1,17 +1,17 @@
 import WpImage from './WpImage'
 import PropTypes from 'prop-types'
 
-import '../src/less/hero-secondary.less'
+import css from '../src/less/hero-secondary.less'
 
 const Hero = props => (
-  <section id='hero'>
+  <section id='hero' className={css.hero}>
     <WpImage 
-      id='hero__background' 
+      className={css.background}
       data={props.background} 
       size='hero'
     />
-    <div id='hero__content'>
-      <h1 id='hero__headline' dangerouslySetInnerHTML={{__html:props.title}}></h1>
+    <div className={css.content}>
+      <h1 className={css.headline} dangerouslySetInnerHTML={{__html:props.title}}></h1>
     </div>
   </section>
 )

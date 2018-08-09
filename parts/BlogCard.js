@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import WpImage from '../parts/WpImage'
+import css from '../src/less/blogCard.less'
 
 const BlogCard = props => {
   const {post} = props
@@ -15,13 +16,13 @@ const BlogCard = props => {
   return (
     <Link href={href} as={`/community/${post.slug}`}>
       <a key={post.id} className='card-community'>
-        <div className='media'>
-          <WpImage className='background' data={post.featured_image} size='medium' />
+        <div className={css.media}>
+          <WpImage className='mediaBackground' data={post.featured_image} size='medium' />
         </div>
-        <div className='content'>
-          <div className='category'>Music</div>
-          <h3 className='title' dangerouslySetInnerHTML={{__html: post.title.rendered}}></h3>
-          <p className='p2 excerpt'>
+        <div className={css.content}>
+          <div className={css.category}>Music</div>
+          <h3 className={css.title} dangerouslySetInnerHTML={{__html: post.title.rendered}}></h3>
+          <p className={['p2',css.excerpt].join(' ')}>
             {post.acf.excerpt}...<br/>
           </p>
           <p className='p2 link-text'>Read More</p>
