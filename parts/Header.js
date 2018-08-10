@@ -158,11 +158,8 @@ class Header extends React.Component {
 
     return (
       <header id='header' className={headerClasses}>
-        {/* <div id='nprogress' className={css.nprogress}>
-          <div className={[css.nprogressBar,'bar'].join(' ')}/>
-        </div> */}
         <nav id='nav' className={navClasses}>
-          <Link href={{pathname:'/', query: {slug:'home',apiRoute:'pages'} }} as={`/`}>
+          <Link href={`/?slug=home&apiRoute=pages`} as={`/`}>
             <a id='site_name' className={css.siteName}>
               <img id='siteLogo' className={css.siteLogo} src='/static/img/logo-inline.svg'/>
             </a>

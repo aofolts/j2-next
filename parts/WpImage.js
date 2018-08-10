@@ -19,9 +19,9 @@ export default class Image extends React.Component {
     this.image       = image
     this.sizes       = image.sizes
     this.loadType    = props.loadType
-    this.loaded      = false
 
     this.state = {
+      hasLoaded: false,
       src: image.sizes.lowres.url,
       srcSet: null
     }
@@ -37,7 +37,7 @@ export default class Image extends React.Component {
     if (isVisible) {
       this.loadImage()
       this.setState({
-        loaded: true
+        hasLoaded: true
       })
     }
   }
@@ -66,7 +66,7 @@ export default class Image extends React.Component {
       />
     )
 
-    if (this.loadType === 'auto' || this.state.loaded === true) {
+    if ((this.loadType === 'auto' && this.state.hasLoaded === false)) {
       return (
         <Visibility onChange={this.checkVisibility} partialVisibility={true}>
           {image}   

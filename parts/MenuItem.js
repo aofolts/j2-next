@@ -60,7 +60,7 @@ class MenuItem extends React.Component {
         ].join(' ')
         
         return (
-          <li className={itemClasses} key={item.ID}>
+          <li className={itemClasses} key={item.ID} id={item.ID}>
             <Link href={href} as={slug}>
               <a className='title-secondary' target={target}>
                 {item.title}
@@ -126,7 +126,7 @@ class MenuItem extends React.Component {
 
     const link = slug 
       ? (
-        <Link href={{ pathname: slug, query: {slug: slug, apiRoute: "pages"} }} as={slug}>
+        <Link href={`/${slug}/?slug=${slug}&apiRoute=pages`} as={slug}>
           <a className='link' target={target}>
             {item.title}
           </a>

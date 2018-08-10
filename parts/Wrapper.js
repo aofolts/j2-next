@@ -9,10 +9,6 @@ const Wrapper = Child => (
     static async getInitialProps(context) {
       const {slug,apiRoute} = context.query
 
-      // Site Data
-      const siteRes  = await fetch(config.api.restUrl),
-            site     = await siteRes.json()
-
       // Menu Data
       const menuRes = await fetch(`${config.api.restUrl}/j2/v1/menu/2`),
             menu    = await menuRes.json()
@@ -20,6 +16,7 @@ const Wrapper = Child => (
       // Post Url
       let postUrl = `${config.api.wpRestUrl}/${apiRoute}/`
       if (slug) {postUrl += `?slug=${slug}`}
+      console.log(postUrl)
 
       // Post Data
       const postRes = await fetch(postUrl),

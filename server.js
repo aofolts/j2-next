@@ -12,29 +12,28 @@ app
       const server = express();
 
     server.get("/", (req, res) => {
-      const actualPage = "/index";
-      const queryParams = { slug: false, apiRoute: "pages/2" };
-      app.render(req, res, actualPage, queryParams);
+        const actualPage = "/index";
+        const queryParams = { slug: 'home', apiRoute: "pages" };
+        app.render(req, res, actualPage, queryParams);
+    });
+    
+    server.get("/food", (req, res) => {
+        const actualPage = "/food";
+        const queryParams = { slug: 'food', apiRoute: "pages" };
+        app.render(req, res, actualPage, queryParams);
+    });
+
+    server.get("/food/:slug", (req, res) => {
+      app.render(req,res,'/archive',{
+          slug: req.params.slug,
+          apiRoute: 'food/?slug='
+      })
     });
 
     server.get("/community", (req, res) => {
         const actualPage = "/community";
         const queryParams = { slug: 'community', apiRoute: "pages" };
         app.render(req, res, actualPage, queryParams);
-    });
-
-    server.get("/food", (req, res) => {
-        app.render(req,res,'/food',{
-          slug: '/food',
-          apiRoute: 'pages'
-        })
-    });
-
-    server.get("/food/:slug", (req, res) => {
-      app.render(req,res,'/archive',{
-        slug: req.params.slug,
-        apiRoute: 'food/?slug='
-      })
     });
 
     server.get("/community/:slug", (req, res) => {
@@ -59,10 +58,10 @@ app
         return handle(req, res);
     });
 
-      server.listen(port, err => {
-          if (err) throw err;
-          console.log(`> Ready on http://localhost:${port}`);
-      });
+    server.listen(port, err => {
+        if (err) throw err;
+        console.log(`> Ready on http://localhost:${port}`);
+    });
   })
   .catch(ex => {
       console.error(ex.stack);

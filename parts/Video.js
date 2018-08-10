@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Visibility from 'react-visibility-sensor'
 
 export default class Video extends React.Component {
 
@@ -6,6 +7,10 @@ export default class Video extends React.Component {
     super(props)
 
     this.getSrc = this.getSrc.bind(this)
+
+    this.state = {
+      src: null
+    }
   }
 
   getSrc() {
@@ -17,17 +22,31 @@ export default class Video extends React.Component {
     }
   }
 
-  render() {
+  loadSrc() {
+    this.setState({
+      src: this.getSrc()
+    })
+  }
 
-    return (
+  render() {
+    const iframe = (
       <iframe className={this.props.className || 'video'}
-        src={this.getSrc()}
+        src={this.state.src}
         frameBorder="0" 
         allow="autoplay; encrypted-media" 
         allowFullScreen
-      >
-      </iframe>
+      />
     )
+
+    if (!this.state.src) {
+      return (
+        <Visibility onChange={vis => vis && this.loadSrc()} partialVisibility={true}>
+          {iframe}   
+        </Visibility>
+      )
+    }
+
+    return iframe
   }
 
 }
